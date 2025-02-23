@@ -88,7 +88,7 @@ def on_click(text):
 root = tk.Tk()
 root.title("Rasel Mridha - Scientific Calculator")
 root.configure(bg="#1e1e1e")
-root.geometry("450x650")
+root.geometry("620x700")
 
 # 🔹 Adding "Rasel Mridha" Label at the Top
 title_label = tk.Label(root, text="Rasel Mridha", font="Arial 18 bold", fg="white", bg="#1e1e1e")
@@ -96,17 +96,17 @@ title_label.grid(row=0, column=0, columnspan=6, pady=10)
 
 # 🔹 Input Box with Awesome Gradient Color
 entry_var = tk.StringVar()
-entry = tk.Entry(root, textvariable=entry_var, font="Arial 20", bg="#444", fg="white", bd=5, relief="ridge", justify="right")
+entry = tk.Entry(root, textvariable=entry_var, font="Arial 40", bg="#444", fg="white", bd=5, relief="ridge", justify="right")
 entry.grid(row=1, column=0, columnspan=6, ipadx=8, ipady=8, pady=10, padx=10)
 
 # Button Layout (Grouped)
 buttons = [
-    ("7", "8", "9", "/", "C", "x!"),  # Factorial
-    ("4", "5", "6", "x", "√", "1/x"),  # Reciprocal
-    ("1", "2", "3", "-", "^", "10^x"),  # 10^x
-    ("0", "00", ".", "+", "log", "ln"),  # Log & ln
-    ("(", ")", "sin", "cos", "tan", "π"),  # Pi added here
-    ("e", "%", "×", "=", "")  # Euler, %, and × (backspace)
+    ("7", "8", "9", "/", "C", "x!"),
+    ("4", "5", "6", "x", "√", "1/x"),
+    ("1", "2", "3", "-", "^", "10^x"),  
+    ("0", "00", ".", "+", "log", "ln"), 
+    ("(", ")", "sin", "cos", "tan", "π"), 
+    ("e", "%", "×", "=", "")  
 ]
 
 # 🔹 Scientific Buttons in Two Aligned Columns (Right Side)
@@ -121,7 +121,7 @@ scientific_buttons = [
 
 # Button Styling
 btn_color = "#333"
-text_color = "white"
+text_color = "orange"
 
 # Create main buttons using a loop
 for i, row in enumerate(buttons):
