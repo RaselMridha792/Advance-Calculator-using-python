@@ -72,6 +72,8 @@ def on_click(text):
     elif text == "sin":
         try:
             if is_degrees:
+                # Convert to radians if degrees mode is selected
+                current_text = current_text.replace("°", "")
                 result = math.sin(math.radians(float(current_text)))
             else:
                 result = math.sin(float(current_text))
@@ -81,6 +83,7 @@ def on_click(text):
     elif text == "cos":
         try:
             if is_degrees:
+                current_text = current_text.replace("°", "")
                 result = math.cos(math.radians(float(current_text)))
             else:
                 result = math.cos(float(current_text))
@@ -90,6 +93,7 @@ def on_click(text):
     elif text == "tan":
         try:
             if is_degrees:
+                current_text = current_text.replace("°", "")
                 result = math.tan(math.radians(float(current_text)))
             else:
                 result = math.tan(float(current_text))
@@ -98,7 +102,7 @@ def on_click(text):
             entry_var.set("Error")
     elif text == "^":
         entry_var.set(current_text + "**")
-    elif text == "deg":  # Toggle degree/radian mode
+    elif text == "deg":  # Toggle degree/radian mode and insert the degree symbol (°)
         is_degrees = not is_degrees
         entry_var.set(f"Mode: {'Degrees' if is_degrees else 'Radians'}")
     else:
@@ -126,7 +130,7 @@ buttons = [
     ("1", "2", "3", "-", "^", "10^x"),  
     ("0", "00", ".", "+", "log", "ln"), 
     ("(", ")", "sin", "cos", "tan", "π"), 
-    ("e", "%", "×", "deg")  # Removed extra '=' button, so only one "=" button exists
+    ("e", "%", "×", "deg")  # Added the degree button here
 ]
 
 # Button Styling
@@ -142,8 +146,13 @@ for i, row in enumerate(buttons):
                             command=lambda text=btn_text: on_click(text))
             btn.grid(row=i + 2, column=j, sticky="nsew", padx=5, pady=5)
 
+# 🔹 Adding the Cross Button for Backspace
+cross_btn = tk.Button(root, text="×", font="Arial 14 bold", bg="#FF8C00", fg="white", padx=15, pady=15, relief="raised", bd=3,
+                      command=lambda: on_click("×"))
+cross_btn.grid(row=7, column=2, sticky="nsew", padx=5, pady=5)
+
 # 🔹 Make "=" and "+" Buttons the Same Size (Place them in the same row)
-equal_btn = tk.Button(root, text="=", font="Arial 14 bold", bg="#FF8C00", fg="white",
+equal_btn = tk.Button(root, text="=", font="Arial 12 bold", bg="#FF8C00", fg="white",
                       padx=15, pady=15, relief="raised", bd=3, command=lambda: on_click("="))
 equal_btn.grid(row=7, column=3, columnspan=2, sticky="nsew", padx=5, pady=5)
 
