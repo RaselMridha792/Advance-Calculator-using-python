@@ -11,7 +11,7 @@ def on_click(text):
             entry_var.set(result)
         except Exception:
             entry_var.set("Error")
-    elif text == "C":
+    elif text == "AC":
         entry_var.set("")
     elif text == "√":
         try:
@@ -54,17 +54,21 @@ root.title("Rasel Mridha - Scientific Calculator")
 root.configure(bg="#1e1e1e")
 root.geometry("400x600")
 
+# 🔹 Adding "Rasel Mridha" Label at the Top
+title_label = tk.Label(root, text="Rasel Mridha", font="Arial 18 bold", fg="white", bg="#1e1e1e")
+title_label.grid(row=0, column=0, columnspan=5, pady=10)
+
 # Entry widget for input/output
 entry_var = tk.StringVar()
 entry = tk.Entry(root, textvariable=entry_var, font="Arial 20", bg="#222", fg="white", bd=5, relief="ridge", justify="right")
-entry.grid(row=0, column=0, columnspan=5, ipadx=8, ipady=8, pady=15, padx=10)
+entry.grid(row=1, column=0, columnspan=5, ipadx=8, ipady=8, pady=10, padx=10)
 
 # Button Layout (Grouped)
 buttons = [
-    ("7", "8", "9", "/", "C"),
+    ("7", "8", "9", "/", "AC"),
     ("4", "5", "6", "*", "√"),
     ("1", "2", "3", "-", "^"),
-    ("0", ".", "+", "log"),
+    ("0", "00", ".", "+", "log"),
     ("(", ")", "sin", "cos", "tan")
 ]
 
@@ -78,16 +82,16 @@ for i, row in enumerate(buttons):
         btn = tk.Button(root, text=btn_text, font="Arial 14 bold", bg=btn_color, fg=text_color,
                         padx=15, pady=15, relief="raised", bd=3,
                         command=lambda text=btn_text: on_click(text))
-        btn.grid(row=i + 1, column=j, sticky="nsew", padx=5, pady=5)
+        btn.grid(row=i + 2, column=j, sticky="nsew", padx=5, pady=5)  # Adjusted row index
 
 # Add Bigger "=" Button (Spans 2 Columns)
 equal_btn = tk.Button(root, text="=", font="Arial 14 bold", bg="#ff9800", fg="black",
                       padx=15, pady=15, relief="raised", bd=3,
                       command=lambda: on_click("="))
-equal_btn.grid(row=4, column=2, columnspan=2, sticky="nsew", padx=5, pady=5)  # Spanning 2 columns
+equal_btn.grid(row=5, column=2, columnspan=2, sticky="nsew", padx=5, pady=5)  # Spanning 2 columns
 
 # Adjusting row and column weights for responsiveness
-for i in range(6):
+for i in range(7):
     root.grid_rowconfigure(i, weight=1)
 for j in range(5):
     root.grid_columnconfigure(j, weight=1)
