@@ -46,12 +46,15 @@ root.configure(bg="black")
 
 entry_var = tk.StringVar()
 
+title_label = tk.Label(root, text="Rasel Mridha", font="Arial 16 bold", bg="black", fg="white")
+title_label.pack(fill="both", pady=10)
+
+
 # Entry widget for displaying input and output
 entry = tk.Entry(root, textvar=entry_var, font="Arial 20", justify="right", bd=10)
 entry.pack(fill="both", ipadx=8, pady=10, padx=10)
 
 memory_var = tk.DoubleVar(value=0)
-
 # Buttons layout for calculator
 buttons = [
     ("7", "8", "9", "/", "M+"),
