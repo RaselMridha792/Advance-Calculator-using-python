@@ -1,42 +1,19 @@
 import tkinter as tk
-from tkinter import messagebox
 import math
 
-# Function to handle button click
-def on_click(event):
-    text = event.widget.cget("text")
+# Function to handle button clicks
+def on_click(text):
     current_text = entry_var.get()
 
     if text == "=":
         try:
-            # Try to evaluate the expression
             result = eval(current_text)
             entry_var.set(result)
         except Exception:
             entry_var.set("Error")
-            messagebox.showerror("Error", "Invalid Input!")
     elif text == "C":
         entry_var.set("")
-    elif text == "M+":
-        try:
-            memory = float(entry_var.get())
-            memory_var.set(memory_var.get() + memory)
-            entry_var.set("")
-        except ValueError:
-            entry_var.set("Error")
-    elif text == "M-":
-        try:
-            memory = float(entry_var.get())
-            memory_var.set(memory_var.get() - memory)
-            entry_var.set("")
-        except ValueError:
-            entry_var.set("Error")
-    elif text == "MR":
-        entry_var.set(memory_var.get())
-    elif text == "MC":
-        memory_var.set(0)
-        entry_var.set("")
-    elif text == "√":  # Handle sqrt
+    elif text == "√":
         try:
             result = math.sqrt(float(current_text))
             entry_var.set(result)
@@ -50,64 +27,70 @@ def on_click(event):
             entry_var.set("Error")
     elif text == "sin":
         try:
-            result = math.sin(math.radians(float(current_text)))  # sin in radians
+            result = math.sin(math.radians(float(current_text)))
             entry_var.set(result)
         except ValueError:
             entry_var.set("Error")
     elif text == "cos":
         try:
-            result = math.cos(math.radians(float(current_text)))  # cos in radians
+            result = math.cos(math.radians(float(current_text)))
             entry_var.set(result)
         except ValueError:
             entry_var.set("Error")
     elif text == "tan":
         try:
-            result = math.tan(math.radians(float(current_text)))  # tan in radians
+            result = math.tan(math.radians(float(current_text)))
             entry_var.set(result)
         except ValueError:
             entry_var.set("Error")
     elif text == "^":
-        entry_var.set(current_text + "**")  # Use Python exponentiation
+        entry_var.set(current_text + "**")
     else:
         entry_var.set(current_text + text)
 
-# GUI Window setup
+# Creating main window
 root = tk.Tk()
-root.title("Advanced Calculator")
+root.title("Rasel Mridha - Scientific Calculator")
+root.configure(bg="#1e1e1e")
 root.geometry("400x600")
-root.configure(bg="black")
 
+# Entry widget for input/output
 entry_var = tk.StringVar()
+entry = tk.Entry(root, textvariable=entry_var, font="Arial 20", bg="#222", fg="white", bd=5, relief="ridge", justify="right")
+entry.grid(row=0, column=0, columnspan=5, ipadx=8, ipady=8, pady=15, padx=10)
 
-title_label = tk.Label(root, text="Rasel Mridha", font="Arial 16 bold", bg="black", fg="white")
-title_label.pack(fill="both", pady=10)
-
-
-# Entry widget for displaying input and output
-entry = tk.Entry(root, textvar=entry_var, font="Arial 20", justify="right", bd=10)
-entry.pack(fill="both", ipadx=8, pady=10, padx=10)
-
-memory_var = tk.DoubleVar(value=0)
-# Buttons layout for calculator
+# Button Layout (Grouped)
 buttons = [
-("7", "8", "9", "/", "M+"),
-    ("4", "5", "6", "*", "M-"),
-    ("1", "2", "3", "-", "MR"),
-    ("0", ".", "C", "+", "MC"),
-    ("(", ")", "=", "√", "^"),  
-    ("log", "sin", "cos", "tan")
+    ("7", "8", "9", "/", "C"),
+    ("4", "5", "6", "*", "√"),
+    ("1", "2", "3", "-", "^"),
+    ("0", ".", "+", "log"),
+    ("(", ")", "sin", "cos", "tan")
 ]
 
-frame = tk.Frame(root)
-frame.pack()
+# Button Styling
+btn_color = "#333"
+text_color = "white"
 
-# Create and pack buttons in the grid
-for row in buttons:
-    btn_row = tk.Frame(frame)
-    btn_row.pack(side="top", fill="both", expand=True)
-    for btn_text in row:
-        btn = tk.Button(btn_row, text=btn_text, font="Arial 16 bold", padx=20, pady=20)
-        btn.pack(side="left", fill="both", expand=True)
-        btn.bind("<Button-1>", on_click)
+# Create buttons using a loop
+for i, row in enumerate(buttons):
+    for j, btn_text in enumerate(row):
+        btn = tk.Button(root, text=btn_text, font="Arial 14 bold", bg=btn_color, fg=text_color,
+                        padx=15, pady=15, relief="raised", bd=3,
+                        command=lambda text=btn_text: on_click(text))
+        btn.grid(row=i + 1, column=j, sticky="nsew", padx=5, pady=5)
 
+# Add Bigger "=" Button (Spans 2 Columns)
+equal_btn = tk.Button(root, text="=", font="Arial 14 bold", bg="#ff9800", fg="black",
+                      padx=15, pady=15, relief="raised", bd=3,
+                      command=lambda: on_click("="))
+equal_btn.grid(row=4, column=2, columnspan=2, sticky="nsew", padx=5, pady=5)  # Spanning 2 columns
+
+# Adjusting row and column weights for responsiveness
+for i in range(6):
+    root.grid_rowconfigure(i, weight=1)
+for j in range(5):
+    root.grid_columnconfigure(j, weight=1)
+
+# Run the application
 root.mainloop()
