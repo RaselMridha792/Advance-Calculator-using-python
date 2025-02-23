@@ -1,16 +1,24 @@
 import tkinter as tk
 import math
 
+# Variable to track if the mode is degree or radian
+is_degrees = True
+
 # Function to handle button clicks
 def on_click(text):
+    global is_degrees
     current_text = entry_var.get()
 
     if text == "=":
-        try:
-            result = eval(current_text.replace("x", "*"))  # Replace 'x' with '*'
-            entry_var.set(result)
-        except Exception:
-            entry_var.set("Error")
+        if not current_text:  # If the input is empty, return 0.
+            entry_var.set("0.")
+        else:
+            try:
+                # Replace 'x' with '*' for multiplication and eval the expression
+                result = eval(current_text.replace("x", "*"))
+                entry_var.set(result)
+            except Exception:
+                entry_var.set("Error")
     elif text == "C":
         entry_var.set("")
     elif text == "×":  # Backspace Functionality
@@ -63,35 +71,47 @@ def on_click(text):
             entry_var.set("Error")
     elif text == "sin":
         try:
-            result = math.sin(math.radians(float(current_text)))
+            if is_degrees:
+                result = math.sin(math.radians(float(current_text)))
+            else:
+                result = math.sin(float(current_text))
             entry_var.set(result)
         except ValueError:
             entry_var.set("Error")
     elif text == "cos":
         try:
-            result = math.cos(math.radians(float(current_text)))
+            if is_degrees:
+                result = math.cos(math.radians(float(current_text)))
+            else:
+                result = math.cos(float(current_text))
             entry_var.set(result)
         except ValueError:
             entry_var.set("Error")
     elif text == "tan":
         try:
-            result = math.tan(math.radians(float(current_text)))
+            if is_degrees:
+                result = math.tan(math.radians(float(current_text)))
+            else:
+                result = math.tan(float(current_text))
             entry_var.set(result)
         except ValueError:
             entry_var.set("Error")
     elif text == "^":
         entry_var.set(current_text + "**")
+    elif text == "deg":  # Toggle degree/radian mode
+        is_degrees = not is_degrees
+        entry_var.set(f"Mode: {'Degrees' if is_degrees else 'Radians'}")
     else:
         entry_var.set(current_text + text)
 
 # Creating main window
 root = tk.Tk()
-root.title("Rasel Mridha - Scientific Calculator")
-root.configure(bg="#1e1e1e")
-root.geometry("620x700")
+root.title("@Rasel Mridha - Scientific Calculator, Satkhira Polytechnic Institute")
+root.configure(bg="#00A2AE")
+root.geometry("630x700")
 
 # 🔹 Adding "Rasel Mridha" Label at the Top
-title_label = tk.Label(root, text="Rasel Mridha", font="Arial 18 bold", fg="white", bg="#1e1e1e")
+title_label = tk.Label(root, text="Rasel Mridha", font="Arial 18 bold", fg="black", bg="#00A2AE")
 title_label.grid(row=0, column=0, columnspan=6, pady=10)
 
 # 🔹 Input Box with Awesome Gradient Color
@@ -106,22 +126,12 @@ buttons = [
     ("1", "2", "3", "-", "^", "10^x"),  
     ("0", "00", ".", "+", "log", "ln"), 
     ("(", ")", "sin", "cos", "tan", "π"), 
-    ("e", "%", "×", "=", "")  
-]
-
-# 🔹 Scientific Buttons in Two Aligned Columns (Right Side)
-scientific_buttons = [
-    ("sin", "cos"),
-    ("tan", "√"),
-    ("π", "e"),
-    ("log", "ln"),
-    ("10^x", "1/x"),
-    ("x!", "%"),
+    ("e", "%", "×", "deg")  # Removed extra '=' button, so only one "=" button exists
 ]
 
 # Button Styling
 btn_color = "#333"
-text_color = "orange"
+text_color = "white"
 
 # Create main buttons using a loop
 for i, row in enumerate(buttons):
@@ -132,22 +142,17 @@ for i, row in enumerate(buttons):
                             command=lambda text=btn_text: on_click(text))
             btn.grid(row=i + 2, column=j, sticky="nsew", padx=5, pady=5)
 
-# Create scientific buttons (aligned in two columns)
-for i, (btn1, btn2) in enumerate(scientific_buttons):
-    btn1_widget = tk.Button(root, text=btn1, font="Arial 14 bold", bg="#555", fg=text_color,
-                            padx=15, pady=15, relief="raised", bd=3,
-                            command=lambda text=btn1: on_click(text))
-    btn1_widget.grid(row=i + 2, column=5, sticky="nsew", padx=5, pady=5)
-
-    btn2_widget = tk.Button(root, text=btn2, font="Arial 14 bold", bg="#555", fg=text_color,
-                            padx=15, pady=15, relief="raised", bd=3,
-                            command=lambda text=btn2: on_click(text))
-    btn2_widget.grid(row=i + 2, column=6, sticky="nsew", padx=5, pady=5)
-
-# 🔹 Make "=" Button Bigger (2 Columns Wide)
+# 🔹 Make "=" and "+" Buttons the Same Size (Place them in the same row)
 equal_btn = tk.Button(root, text="=", font="Arial 14 bold", bg="#FF8C00", fg="white",
                       padx=15, pady=15, relief="raised", bd=3, command=lambda: on_click("="))
-equal_btn.grid(row=7, column=4, columnspan=2, sticky="nsew", padx=5, pady=5)
+equal_btn.grid(row=7, column=3, columnspan=2, sticky="nsew", padx=5, pady=5)
+
+plus_btn = tk.Button(root, text="+", font="Arial 14 bold", bg=btn_color, fg=text_color,
+                     padx=15, pady=15, relief="raised", bd=3, command=lambda: on_click("+"))
+plus_btn.grid(row=7, column=1, columnspan=2, sticky="nsew", padx=5, pady=5)
+
+# 🔹 Bind Enter Key to "=" Button
+root.bind('<Return>', lambda event: on_click("="))
 
 # Start the main event loop
 root.mainloop()
