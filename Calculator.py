@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import messagebox
+import math
 
 # Function to handle button click
 def on_click(event):
@@ -35,6 +36,38 @@ def on_click(event):
     elif text == "MC":
         memory_var.set(0)
         entry_var.set("")
+    elif text == "√":  # Handle sqrt
+        try:
+            result = math.sqrt(float(current_text))
+            entry_var.set(result)
+        except ValueError:
+            entry_var.set("Error")
+    elif text == "log":
+        try:
+            result = math.log(float(current_text))
+            entry_var.set(result)
+        except ValueError:
+            entry_var.set("Error")
+    elif text == "sin":
+        try:
+            result = math.sin(math.radians(float(current_text)))  # sin in radians
+            entry_var.set(result)
+        except ValueError:
+            entry_var.set("Error")
+    elif text == "cos":
+        try:
+            result = math.cos(math.radians(float(current_text)))  # cos in radians
+            entry_var.set(result)
+        except ValueError:
+            entry_var.set("Error")
+    elif text == "tan":
+        try:
+            result = math.tan(math.radians(float(current_text)))  # tan in radians
+            entry_var.set(result)
+        except ValueError:
+            entry_var.set("Error")
+    elif text == "^":
+        entry_var.set(current_text + "**")  # Use Python exponentiation
     else:
         entry_var.set(current_text + text)
 
