@@ -154,9 +154,9 @@ cross_btn = tk.Button(root, text="×", font="Arial 14 bold", bg="#FF8C00", fg="w
 cross_btn.grid(row=6, column=2, sticky="nsew", padx=5, pady=5)
 
 
-persentage_btn = tk.Button(root, text="%", font="Arial 14 bold", bg="#FF8C00", fg="white", padx=15, pady=15, relief="raised", bd=3,
+persentage_btn = tk.Button(root, text="%", font="Arial 14 bold", bg="#333", fg="white", padx=15, pady=15, relief="raised", bd=3,
                       command=lambda: on_click("%"))
-persentage_btn.grid(row=7, column=0, sticky="nsew", padx=5, pady=5)
+persentage_btn.grid(row=7, column=3, sticky="nsew", padx=5, pady=5)
 
 # 🔹 Make "=" and "+" Buttons the Same Size (Place them in the same row)
 equal_btn = tk.Button(root, text="=", font="Arial 14 bold", bg="#FF8C00", fg="white",
