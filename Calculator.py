@@ -117,6 +117,8 @@ root.geometry("630x700")
 # 🔹 Adding "Rasel Mridha" Label at the Top
 title_label = tk.Label(root, text="Rasel Mridha", font="Arial 18 bold", fg="black", bg="#00A2AE")
 title_label.grid(row=0, column=0, columnspan=6, pady=10)
+title_label = tk.Label(root, text="Satkhira Polytechnic Institute", font="Arial 12 bold", fg="black", bg="#00A2AE")
+title_label.grid(row=10, column=0, columnspan=6, pady=10)
 
 # 🔹 Input Box with Awesome Gradient Color
 entry_var = tk.StringVar()
@@ -130,7 +132,7 @@ buttons = [
     ("1", "2", "3", "-", "^", "10^x"),  
     ("0", "00", ".", "+", "log", "ln"), 
     ("(", ")", "sin", "cos", "tan", "π"), 
-    ("e", "%", "×", "deg")  # Added the degree button here
+    ("e", "%", "×", "deg"),# Added the degree button here
 ]
 
 # Button Styling
@@ -149,16 +151,21 @@ for i, row in enumerate(buttons):
 # 🔹 Adding the Cross Button for Backspace
 cross_btn = tk.Button(root, text="×", font="Arial 14 bold", bg="#FF8C00", fg="white", padx=15, pady=15, relief="raised", bd=3,
                       command=lambda: on_click("×"))
-cross_btn.grid(row=7, column=2, sticky="nsew", padx=5, pady=5)
+cross_btn.grid(row=6, column=2, sticky="nsew", padx=5, pady=5)
+
+
+persentage_btn = tk.Button(root, text="%", font="Arial 14 bold", bg="#FF8C00", fg="white", padx=15, pady=15, relief="raised", bd=3,
+                      command=lambda: on_click("%"))
+persentage_btn.grid(row=7, column=0, sticky="nsew", padx=5, pady=5)
 
 # 🔹 Make "=" and "+" Buttons the Same Size (Place them in the same row)
-equal_btn = tk.Button(root, text="=", font="Arial 12 bold", bg="#FF8C00", fg="white",
+equal_btn = tk.Button(root, text="=", font="Arial 14 bold", bg="#FF8C00", fg="white",
                       padx=15, pady=15, relief="raised", bd=3, command=lambda: on_click("="))
-equal_btn.grid(row=7, column=3, columnspan=2, sticky="nsew", padx=5, pady=5)
+equal_btn.grid(row=7, column=4, columnspan=2, sticky="nsew", padx=5, pady=5)
 
 plus_btn = tk.Button(root, text="+", font="Arial 14 bold", bg=btn_color, fg=text_color,
                      padx=15, pady=15, relief="raised", bd=3, command=lambda: on_click("+"))
-plus_btn.grid(row=7, column=1, columnspan=2, sticky="nsew", padx=5, pady=5)
+plus_btn.grid(row=7, column=2, columnspan=1, sticky="nsew", padx=5, pady=5)
 
 # 🔹 Bind Enter Key to "=" Button
 root.bind('<Return>', lambda event: on_click("="))
