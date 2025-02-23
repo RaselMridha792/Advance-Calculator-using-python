@@ -57,11 +57,12 @@ entry.pack(fill="both", ipadx=8, pady=10, padx=10)
 memory_var = tk.DoubleVar(value=0)
 # Buttons layout for calculator
 buttons = [
-    ("7", "8", "9", "/", "M+"),
+("7", "8", "9", "/", "M+"),
     ("4", "5", "6", "*", "M-"),
     ("1", "2", "3", "-", "MR"),
     ("0", ".", "C", "+", "MC"),
-    ("(", ")", "=", "sqrt", "^")
+    ("(", ")", "=", "√", "^"),  
+    ("log", "sin", "cos", "tan")
 ]
 
 frame = tk.Frame(root)
